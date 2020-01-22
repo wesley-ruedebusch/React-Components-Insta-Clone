@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from "react";
 
 const CommentInput = props => {
+  const [com, setCom] = useState("");
+  const changeComment = e => {
+    setCom(e.target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.setComments(com);
+    setCom("");
+  };
+
   return (
-    <form className="comment-form" onSubmit={props.submitComment}>
+    <form className="comment-form" onSubmit={event => handleSubmit(event)}>
       <input
         type="text"
-        value={props.comment}
+        value={com}
         placeholder="Add comment... "
-        onChange={props.changeComment}
+        onChange={event => changeComment(event)}
       />
     </form>
   );
